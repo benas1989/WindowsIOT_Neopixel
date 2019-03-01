@@ -41,19 +41,19 @@ namespace RaspberryPi3_WS2812B
                 strip.ClearPixelsBuffer();
                 for (int i = 0; i < pixels; i++)
                 {
-                    strip.SetPixel(i, 100,0,0);
+                    strip.SetPixel(i, 50,0,0);
                     await strip.ShowAsync();
                 }
                 await Task.Delay(500);
                 for (int i = 0; i < pixels; i++)
                 {
-                    strip.SetPixel(i, 0, 100, 0);
+                    strip.SetPixel(i, 0, 50, 0);
                     await strip.ShowAsync();
                 }
                 await Task.Delay(500);
                 for (int i = 0; i < pixels; i++)
                 {
-                    strip.SetPixel(i, 0, 0, 100);
+                    strip.SetPixel(i, 0, 0, 50);
                     await strip.ShowAsync();
                 }
                 await Task.Delay(500);

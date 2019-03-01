@@ -9,6 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Wheat">
-        <TextBlock Text="Raspberry pi 3 WS2812B" FontSize="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="Raspberry pi 3 WS2812B" FontSize="70" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

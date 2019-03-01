@@ -10,7 +10,7 @@ namespace Neopixel
 {
     public class WS2812B
     {
-        private const string SPI_PORT_NAME = "SPI0";
+        private const string SPI_PORT_NAME = "SPI1";
         private int totalPixels;
         private byte[] pixelsBuffer;
         private SpiDevice spi;
@@ -38,6 +38,7 @@ namespace Neopixel
                 pixelsBuffer = new byte[pixels * 3];
                 totalPixels = pixels;
                 ClearPixelsBuffer();
+                initialiseComplete = true;
                 await ShowAsync();
             }
             catch (Exception ex)
