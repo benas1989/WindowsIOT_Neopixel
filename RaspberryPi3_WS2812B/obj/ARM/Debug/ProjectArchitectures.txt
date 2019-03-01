@@ -1,0 +1,2 @@
+C:\Users\lauri\Desktop\github\WindowsIOT_Neopixel\Neopixel\Neopixel.csproj;arm
+C:\Users\lauri\Desktop\github\WindowsIOT_Neopixel\RaspberryPi3_WS2812B\RaspberryPi3_WS2812B.csproj;arm
