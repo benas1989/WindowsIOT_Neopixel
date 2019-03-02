@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Neopixel.Colors;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Spi;
@@ -15,6 +14,23 @@ namespace Neopixel
         private byte[] pixelsBuffer;
         private SpiDevice spi;
         private bool initialiseComplete = false;
+
+        private RGBColor GetColorFromHex(string hex)
+        {
+            try
+            {
+                hex = hex.Replace("#", string.Empty);
+                byte r = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));
+                byte g = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
+                byte b = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
+                return new RGBColor(r,g,b);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("GetSolidColorBrusch() error: {0}", ex.Message);
+            }
+            return null;
+        }
 
         public void ClearPixelsBuffer()
         {
@@ -43,7 +59,7 @@ namespace Neopixel
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("InitializeAsync() error: {0}", ex.Message);
+                Debug.WriteLine("InitializeAsync() error: {0}", ex.Message);
                 return false;
             }
             return true;
@@ -60,6 +76,40 @@ namespace Neopixel
             return true;
         }
 
+        public bool SetPixel(int position, string hex)
+        {
+            var color = GetColorFromHex(hex);
+            if (color != null)
+            {
+                return SetPixel(position, color.Red,color.Green, color.Blue);
+            }
+            return false;
+        }
+
+        public bool SetPixel(int position, RGBColor color)
+        {
+            if (color != null)
+            {
+                return SetPixel(position, color.Red, color.Green, color.Blue);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool SetPixel(int position,HSLColor color)
+        {
+            if (color != null)
+            {
+                return SetPixel(position, color.Red, color.Green, color.Blue);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task ShowAsync()
         {
             try
@@ -67,11 +117,11 @@ namespace Neopixel
                 if (!initialiseComplete)
                     return;
                 spi.Write(pixelsBuffer);
-                await Task.Delay(1);
+                await Task.Delay(2);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("ShowAsync() error: {0}", ex.Message);
+                Debug.WriteLine("ShowAsync() error: {0}", ex.Message);
             }
             return;
         }

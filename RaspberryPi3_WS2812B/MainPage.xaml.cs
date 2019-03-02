@@ -1,4 +1,5 @@
 ﻿using Neopixel;
+using Neopixel.Colors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,17 @@ namespace RaspberryPi3_WS2812B
         public MainPage()
         {
             this.InitializeComponent();
+
+
+
+
+            HSLColor cp = new HSLColor(100, 69, 28);
+            RGBColor c = new RGBColor(cp.Red, cp.Green, cp.Blue);
+            var x = c.test();
+
+
+
+
             Task.Factory.StartNew(() => { Run(); });
         }
 
@@ -38,25 +50,25 @@ namespace RaspberryPi3_WS2812B
             await strip.InitializeAsync(pixels);
             while (true)
             {
+                int hue = 0;
+                for (int i = 0; i < pixels; i++)
+                {
+                    var color = new HSLColor(hue, 100, 40);
+                    strip.SetPixel(i,color.Red,color.Green,color.Blue);
+                    await strip.ShowAsync();
+                    hue = hue + 3;
+                }
+                hue = 360;
                 strip.ClearPixelsBuffer();
-                for (int i = 0; i < pixels; i++)
+                for (int i = pixels-1; i >= 0; i--)
                 {
-                    strip.SetPixel(i, 50,0,0);
+                    var color = new HSLColor(hue, 100, 40);
+                    strip.SetPixel(i, color.Red, color.Green, color.Blue);
                     await strip.ShowAsync();
+                    hue = hue - 3;
                 }
-                await Task.Delay(500);
-                for (int i = 0; i < pixels; i++)
-                {
-                    strip.SetPixel(i, 0, 50, 0);
-                    await strip.ShowAsync();
-                }
-                await Task.Delay(500);
-                for (int i = 0; i < pixels; i++)
-                {
-                    strip.SetPixel(i, 0, 0, 50);
-                    await strip.ShowAsync();
-                }
-                await Task.Delay(500);
+                hue = 0;
+                strip.ClearPixelsBuffer();
             }
         }
     }

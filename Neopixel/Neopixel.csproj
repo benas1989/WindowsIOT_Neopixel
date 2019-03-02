@@ -120,6 +120,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Colors\ColorConverter.cs" />
+    <Compile Include="Colors\HSLColor.cs" />
+    <Compile Include="Colors\RGBColor.cs" />
     <Compile Include="WS2812B.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Neopixel.rd.xml" />
