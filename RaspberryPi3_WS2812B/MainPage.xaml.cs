@@ -58,14 +58,14 @@ namespace RaspberryPi3_WS2812B
                     await strip.ShowAsync();
                     hue = hue + 3;
                 }
-                hue = 360;
+                hue = 0;
                 strip.ClearPixelsBuffer();
                 for (int i = pixels-1; i >= 0; i--)
                 {
                     var color = new HSLColor(hue, 100, 40);
                     strip.SetPixel(i, color.Red, color.Green, color.Blue);
                     await strip.ShowAsync();
-                    hue = hue - 3;
+                    hue = hue + 3;
                 }
                 hue = 0;
                 strip.ClearPixelsBuffer();
